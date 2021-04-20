@@ -35,3 +35,6 @@ class KeyEvent:
             self.type = KeyType(fields.get('type', None).split('.')[1])
             self.key = fields.get('key', None)
             self.utc = datetime.strptime(fields.get('utc', None), '%Y-%m-%d %H:%M:%S.%f')
+
+    def __str__(self):
+        return self.__class__.__name__ + ': { ' + ', '.join([f'.{k}={v}' for k, v in self.__dict__.items()]) + ' }'

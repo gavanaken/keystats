@@ -18,6 +18,7 @@ def main():
         key_type = KeyType.alphanum if 'char' in dir(key) else KeyType.special
         event = KeyEvent(key_type, str(key), datetime.utcnow())
         producer.produce(event.json())
+        print(event)
 
     with keyboard.Listener(
             on_release=on_release) as listener:
