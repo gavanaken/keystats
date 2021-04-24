@@ -32,9 +32,15 @@ class Consumer:
 
     def read(self) -> Union[str, None]:
         """Check for a message and return it"""
-        msg = self._consumer.poll(0.1)
+        msg: confluent_kafka.Message = self._consumer.poll(0.1)
         if msg is None:
             return None
         if msg.error():
             return None
         return msg.value()
+
+    def __str__(self) -> str:
+        """Get a description of this consumer for logging"""
+        return f'Consumer: #{self._id}\n' \
+               f'\tConnected: [{self._brokers}]\n' \
+               f'\tListening: {self._topics}'

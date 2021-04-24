@@ -1,3 +1,3 @@
 confluent-kafka
+keyboard
 pandas
-pynput

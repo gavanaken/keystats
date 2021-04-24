@@ -11,16 +11,18 @@ import os
 import pandas as pd
 import time
 
-OUTPUT = 'data.csv'
+OUTPUT = os.getenv('DATA_OUTPUT', 'data.csv')
 
 
 def main():
+    """Initialize a consumer and store data in a file."""
     if not os.path.exists(OUTPUT):
         df = pd.DataFrame(columns=[k for k in KeyEvent.__annotations__.keys()])
     else:
         df = pd.read_csv(OUTPUT)
 
     consumer = Consumer()
+    print(consumer)
     while True:
         data = consumer.read()
         if data:
@@ -30,7 +32,7 @@ def main():
             df.to_csv(OUTPUT, index=False)
             print(f'{len(df)}| {event}')
         else:
-            time.sleep(0.1)
+            time.sleep(0.01)
 
 
 if __name__ == '__main__':
